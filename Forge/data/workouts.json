@@ -1,0 +1,82 @@
+[
+    {
+        "date": "2026-04-01",
+        "exercise": "Bench Press",
+        "sets": 3,
+        "reps": 10,
+        "weight": 145.0,
+        "rpe": 2.0
+    },
+    {
+        "date": "2026-04-01",
+        "exercise": "Curls",
+        "sets": 3,
+        "reps": 10,
+        "weight": 35.0,
+        "rpe": 1.0
+    },
+    {
+        "date": "2026-04-01",
+        "exercise": "Bench",
+        "sets": 3,
+        "reps": 10,
+        "weight": 155.0,
+        "rpe": 2.0
+    },
+    {
+        "date": "2026-04-01",
+        "exercise": "Bench",
+        "sets": 3,
+        "reps": 10,
+        "weight": 225.0,
+        "rpe": 2.0
+    },
+    {
+        "date": "2026-04-01",
+        "exercise": "Bench",
+        "sets": 3,
+        "reps": 10,
+        "weight": 226.0,
+        "rpe": 2.0
+    },
+    {
+        "date": "2026-04-01",
+        "exercise": "Bench",
+        "sets": 3,
+        "reps": 10,
+        "weight": 227.0,
+        "rpe": 2.0
+    },
+    {
+        "date": "2026-04-01",
+        "exercise": "Bench",
+        "sets": 3,
+        "reps": 10,
+        "weight": 235.0,
+        "rpe": 2.0
+    },
+    {
+        "date": "2026-04-01",
+        "exercise": "Bench",
+        "sets": 3,
+        "reps": 10,
+        "weight": 236.0,
+        "rpe": 2.0
+    },
+    {
+        "date": "2026-04-01",
+        "exercise": "Bench",
+        "sets": 4,
+        "reps": 12,
+        "weight": 245.0,
+        "rpe": 2.0
+    },
+    {
+        "date": "2026-04-01",
+        "exercise": "Bench",
+        "sets": 3,
+        "reps": 10,
+        "weight": 345.0,
+        "rpe": 2.0
+    }
+]
