@@ -45,9 +45,7 @@ def save_workout(entry: WorkoutEntry) -> None:
 
     workouts = load_workouts()
     workouts.append(entry)
-
-    with open(WORKOUTS_PATH, "w", encoding="utf-8") as file:
-        json.dump([workout.to_dict() for workout in workouts], file, indent=4)
+    _write_workouts(workouts)
 
 
 def load_workouts() -> List[WorkoutEntry]:
@@ -87,3 +85,22 @@ def get_previous_workout(exercise_name: str) -> Optional[WorkoutEntry]:
         return None
 
     return matching_workouts[-1]
+
+
+def delete_workout_at_index(index: int) -> None:
+    workouts = load_workouts()
+
+    if 0 <= index < len(workouts):
+        del workouts[index]
+        _write_workouts(workouts)
+
+
+def clear_workouts() -> None:
+    _write_workouts([])
+
+
+def _write_workouts(workouts: List[WorkoutEntry]) -> None:
+    ensure_data_dir()
+
+    with open(WORKOUTS_PATH, "w", encoding="utf-8") as file:
+        json.dump([workout.to_dict() for workout in workouts], file, indent=4)
