@@ -17,7 +17,9 @@ from storage import (
     save_profile,
     save_workout,
     load_workouts,
-    get_previous_workout
+    get_previous_workout,
+    delete_workout_at_index,
+    clear_workouts
 )
 
 
@@ -55,6 +57,9 @@ class ForgeApp:
         self.rpe_entry: Optional[tk.Entry] = None
 
         self.macro_results_frame: Optional[tk.Frame] = None
+
+        self.workout_history_listbox: Optional[tk.Listbox] = None
+        self.history_display_map = []
 
         self.setup_styles()
         self.show_dashboard()
@@ -172,16 +177,6 @@ class ForgeApp:
             justify="center"
         )
 
-    def make_label(self, parent: tk.Widget, text: str, font_size: int = 12, bold: bool = False) -> tk.Label:
-        weight = "bold" if bold else "normal"
-        return tk.Label(
-            parent,
-            text=text,
-            font=("Arial", font_size, weight),
-            bg=self.BG_COLOR,
-            fg=self.TEXT_COLOR
-        )
-
     def show_dashboard(self) -> None:
         body = self.create_screen("FORGE")
 
@@ -238,12 +233,6 @@ class ForgeApp:
         body = self.create_screen("Metrics & Macros", show_back=True, back_command=self.show_dashboard)
 
         metrics_section = self.create_section(body)
-
-        left_col = tk.Frame(metrics_section, bg=self.PANEL_COLOR)
-        left_col.pack(side="left", padx=(20, 30))
-
-        right_col = tk.Frame(metrics_section, bg=self.PANEL_COLOR)
-        right_col.pack(side="left", padx=20)
 
         metric_labels = [
             ("BMI:", f"{bmi:.1f}"),
@@ -594,7 +583,9 @@ class ForgeApp:
         top_row = tk.Frame(top_section, bg=self.PANEL_COLOR)
         top_row.pack()
 
-        self.make_button(top_row, "Add New Workout", self.show_log_workout, width=18).pack()
+        self.make_button(top_row, "Add New Workout", self.show_log_workout, width=18).pack(side="left", padx=10)
+        self.make_button(top_row, "Delete Selected", self.delete_selected_workout, width=18).pack(side="left", padx=10)
+        self.make_button(top_row, "Clear All Workouts", self.clear_all_workouts_confirmed, width=18).pack(side="left", padx=10)
 
         history_section = self.create_section(body)
 
@@ -612,6 +603,8 @@ class ForgeApp:
                 font=("Arial", 12),
                 bg=self.PANEL_COLOR
             ).pack(anchor="w")
+            self.workout_history_listbox = None
+            self.history_display_map = []
             return
 
         list_frame = tk.Frame(history_section, bg=self.PANEL_COLOR)
@@ -620,7 +613,7 @@ class ForgeApp:
         scrollbar = tk.Scrollbar(list_frame)
         scrollbar.pack(side="right", fill="y")
 
-        workout_listbox = tk.Listbox(
+        self.workout_history_listbox = tk.Listbox(
             list_frame,
             width=150,
             height=14,
@@ -631,9 +624,11 @@ class ForgeApp:
             relief="solid",
             bd=1
         )
-        workout_listbox.pack(side="left", fill="both", expand=True)
+        self.workout_history_listbox.pack(side="left", fill="both", expand=True)
 
-        scrollbar.config(command=workout_listbox.yview)
+        scrollbar.config(command=self.workout_history_listbox.yview)
+
+        self.history_display_map = []
 
         for current_index in range(len(workouts) - 1, -1, -1):
             workout = workouts[current_index]
@@ -653,7 +648,54 @@ class ForgeApp:
                 f"{workout.sets}x{workout.reps} @ {workout.weight:.1f} lbs | "
                 f"{feedback} | Next: {recommendation}"
             )
-            workout_listbox.insert(tk.END, workout_text)
+
+            self.workout_history_listbox.insert(tk.END, workout_text)
+            self.history_display_map.append(current_index)
+
+    def delete_selected_workout(self) -> None:
+        if self.workout_history_listbox is None or not self.history_display_map:
+            messagebox.showwarning("No Workouts", "There are no workouts to delete.")
+            return
+
+        selection = self.workout_history_listbox.curselection()
+
+        if not selection:
+            messagebox.showwarning("No Selection", "Please select a workout to delete.")
+            return
+
+        selected_display_index = selection[0]
+        original_index = self.history_display_map[selected_display_index]
+
+        confirm = messagebox.askyesno(
+            "Delete Workout",
+            "Are you sure you want to delete the selected workout?"
+        )
+
+        if not confirm:
+            return
+
+        delete_workout_at_index(original_index)
+        messagebox.showinfo("Workout Deleted", "The selected workout was deleted.")
+        self.show_workout_history()
+
+    def clear_all_workouts_confirmed(self) -> None:
+        workouts = load_workouts()
+
+        if not workouts:
+            messagebox.showwarning("No Workouts", "There are no workouts to clear.")
+            return
+
+        confirm = messagebox.askyesno(
+            "Clear All Workouts",
+            "Are you sure you want to permanently delete all workout history?"
+        )
+
+        if not confirm:
+            return
+
+        clear_workouts()
+        messagebox.showinfo("Workout History Cleared", "All workout history has been removed.")
+        self.show_workout_history()
 
     def not_implemented(self) -> None:
         messagebox.showinfo("Coming Soon", "This feature is not built yet.")
