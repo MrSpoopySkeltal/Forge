@@ -141,3 +141,67 @@ def get_progression_recommendation(previous_workout, current_workout) -> str:
         return "Matched last session. Repeat this weight and try to add 1 rep next time."
 
     return "Performance dropped. Repeat this weight until reps recover, or reduce fatigue before increasing."
+
+def estimate_cardio_calories(
+    weight_lb: float,
+    activity_type: str,
+    duration_minutes: int,
+    intensity: str
+) -> int:
+    weight_kg = weight_lb * 0.45359237
+    duration_hours = duration_minutes / 60
+
+    activity = activity_type.strip().lower()
+    intensity_key = intensity.strip().lower()
+
+    met_values = {
+        "walking": {
+            "low": 2.5,
+            "moderate": 3.5,
+            "high": 4.3,
+        },
+        "jogging": {
+            "low": 5.0,
+            "moderate": 7.0,
+            "high": 8.5,
+        },
+        "running": {
+            "low": 7.0,
+            "moderate": 9.8,
+            "high": 11.5,
+        },
+        "biking": {
+            "low": 4.0,
+            "moderate": 6.8,
+            "high": 8.5,
+        },
+        "rowing": {
+            "low": 4.8,
+            "moderate": 7.0,
+            "high": 8.5,
+        },
+        "elliptical": {
+            "low": 4.5,
+            "moderate": 5.5,
+            "high": 7.0,
+        },
+        "boxing": {
+            "low": 5.5,
+            "moderate": 7.8,
+            "high": 10.0,
+        },
+    }
+
+    if duration_minutes <= 0:
+        raise ValueError("Duration must be greater than zero.")
+
+    if weight_lb <= 0:
+        raise ValueError("Weight must be greater than zero.")
+
+    met = met_values.get(activity, {}).get(intensity_key)
+
+    if met is None:
+        met = 5.0
+
+    calories = met * weight_kg * duration_hours
+    return round(calories)
