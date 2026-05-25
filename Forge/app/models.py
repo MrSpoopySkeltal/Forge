@@ -24,3 +24,15 @@ class WorkoutEntry:
 
     def to_dict(self) -> dict:
         return asdict(self)
+
+
+@dataclass
+class CardioEntry:
+    date: str
+    activity_type: str
+    duration_minutes: int
+    intensity: str
+    estimated_calories: int
+
+    def to_dict(self) -> dict:
+        return asdict(self)
