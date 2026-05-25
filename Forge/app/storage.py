@@ -2,13 +2,15 @@ import json
 from pathlib import Path
 from typing import List, Optional
 
-from models import UserProfile, WorkoutEntry
+from models import CardioEntry, UserProfile, WorkoutEntry
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / "data"
+
 PROFILE_PATH = DATA_DIR / "profile.json"
 WORKOUTS_PATH = DATA_DIR / "workouts.json"
+CARDIO_PATH = DATA_DIR / "cardio.json"
 
 
 def ensure_data_dir() -> None:
@@ -76,6 +78,7 @@ def load_workouts() -> List[WorkoutEntry]:
 
 def get_previous_workout(exercise_name: str) -> Optional[WorkoutEntry]:
     workouts = load_workouts()
+
     matching_workouts = [
         workout for workout in workouts
         if workout.exercise.strip().lower() == exercise_name.strip().lower()
@@ -104,3 +107,55 @@ def _write_workouts(workouts: List[WorkoutEntry]) -> None:
 
     with open(WORKOUTS_PATH, "w", encoding="utf-8") as file:
         json.dump([workout.to_dict() for workout in workouts], file, indent=4)
+
+
+def save_cardio_entry(entry: CardioEntry) -> None:
+    ensure_data_dir()
+
+    cardio_entries = load_cardio_entries()
+    cardio_entries.append(entry)
+    _write_cardio_entries(cardio_entries)
+
+
+def load_cardio_entries() -> List[CardioEntry]:
+    ensure_data_dir()
+
+    if not CARDIO_PATH.exists():
+        return []
+
+    with open(CARDIO_PATH, "r", encoding="utf-8") as file:
+        data = json.load(file)
+
+    cardio_entries: List[CardioEntry] = []
+
+    for item in data:
+        cardio_entries.append(
+            CardioEntry(
+                date=str(item["date"]),
+                activity_type=str(item["activity_type"]),
+                duration_minutes=int(item["duration_minutes"]),
+                intensity=str(item["intensity"]),
+                estimated_calories=int(item["estimated_calories"])
+            )
+        )
+
+    return cardio_entries
+
+
+def delete_cardio_at_index(index: int) -> None:
+    cardio_entries = load_cardio_entries()
+
+    if 0 <= index < len(cardio_entries):
+        del cardio_entries[index]
+        _write_cardio_entries(cardio_entries)
+
+
+def clear_cardio_entries() -> None:
+    _write_cardio_entries([])
+
+
+def _write_cardio_entries(cardio_entries: List[CardioEntry]) -> None:
+    ensure_data_dir()
+
+    with open(CARDIO_PATH, "w", encoding="utf-8") as file:
+        json.dump([entry.to_dict() for entry in cardio_entries], file, indent=4)
