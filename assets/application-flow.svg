@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 650">
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#facc15"/>
+    </marker>
+    <linearGradient id="panel" x1="0" x2="1">
+      <stop offset="0%" stop-color="#1f2937"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+  </defs>
+  <rect width="1100" height="650" fill="#0d1117"/>
+  <text x="550" y="58" fill="#f3f4f6" font-family="Arial, sans-serif" font-size="34" font-weight="700" text-anchor="middle">Forge Application Flow</text>
+  <text x="550" y="94" fill="#aab4c3" font-family="Arial, sans-serif" font-size="18" text-anchor="middle">Primary user navigation from the dashboard to tracking, profile, and history screens</text>
+
+  <g font-family="Arial, sans-serif" font-size="20" font-weight="700" text-anchor="middle">
+    <rect x="440" y="135" width="220" height="80" rx="18" fill="url(#panel)" stroke="#f97316" stroke-width="3"/>
+    <text x="550" y="183" fill="#f3f4f6">Home Dashboard</text>
+
+    <rect x="90" y="300" width="210" height="82" rx="18" fill="url(#panel)" stroke="#3b82f6" stroke-width="3"/>
+    <text x="195" y="335" fill="#f3f4f6">Workout Tracker</text>
+    <text x="195" y="362" fill="#aab4c3" font-size="15" font-weight="400">sets, reps, weight, RPE</text>
+
+    <rect x="325" y="300" width="210" height="82" rx="18" fill="url(#panel)" stroke="#3b82f6" stroke-width="3"/>
+    <text x="430" y="335" fill="#f3f4f6">Cardio Tracker</text>
+    <text x="430" y="362" fill="#aab4c3" font-size="15" font-weight="400">type, duration, intensity</text>
+
+    <rect x="565" y="300" width="210" height="82" rx="18" fill="url(#panel)" stroke="#3b82f6" stroke-width="3"/>
+    <text x="670" y="335" fill="#f3f4f6">Metrics &amp; Macros</text>
+    <text x="670" y="362" fill="#aab4c3" font-size="15" font-weight="400">BMI, BMR, TDEE, goals</text>
+
+    <rect x="800" y="300" width="210" height="82" rx="18" fill="url(#panel)" stroke="#3b82f6" stroke-width="3"/>
+    <text x="905" y="335" fill="#f3f4f6">Profile Setup</text>
+    <text x="905" y="362" fill="#aab4c3" font-size="15" font-weight="400">age, sex, height, weight</text>
+
+    <rect x="175" y="500" width="250" height="82" rx="18" fill="url(#panel)" stroke="#22c55e" stroke-width="3"/>
+    <text x="300" y="535" fill="#f3f4f6">Workout History</text>
+    <text x="300" y="562" fill="#aab4c3" font-size="15" font-weight="400">progressive overload feedback</text>
+
+    <rect x="455" y="500" width="250" height="82" rx="18" fill="url(#panel)" stroke="#22c55e" stroke-width="3"/>
+    <text x="580" y="535" fill="#f3f4f6">Cardio History</text>
+    <text x="580" y="562" fill="#aab4c3" font-size="15" font-weight="400">saved cardio sessions</text>
+  </g>
+
+  <g stroke="#facc15" stroke-width="4" fill="none" marker-end="url(#arrow)">
+    <path d="M500 215 C430 250 260 260 205 297"/>
+    <path d="M525 215 C500 250 455 260 433 297"/>
+    <path d="M575 215 C615 250 650 260 665 297"/>
+    <path d="M620 215 C710 250 830 260 895 297"/>
+    <path d="M195 382 C205 435 255 455 295 496"/>
+    <path d="M430 382 C455 440 520 455 575 496"/>
+  </g>
+</svg>
