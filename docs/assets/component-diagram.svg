@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 650">
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#facc15"/>
+    </marker>
+    <linearGradient id="blue" x1="0" x2="1">
+      <stop offset="0%" stop-color="#1e40af"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="orange" x1="0" x2="1">
+      <stop offset="0%" stop-color="#ea580c"/>
+      <stop offset="100%" stop-color="#facc15"/>
+    </linearGradient>
+  </defs>
+  <rect width="1100" height="650" fill="#0d1117"/>
+  <text x="550" y="58" fill="#f3f4f6" font-family="Arial, sans-serif" font-size="34" font-weight="700" text-anchor="middle">Forge Component Diagram</text>
+  <text x="550" y="94" fill="#aab4c3" font-family="Arial, sans-serif" font-size="18" text-anchor="middle">High-level application structure and data flow</text>
+
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <rect x="75" y="170" width="240" height="270" rx="22" fill="#111827" stroke="#3b82f6" stroke-width="3"/>
+    <text x="195" y="210" fill="#f3f4f6" font-size="24" font-weight="700">Tkinter UI</text>
+    <text x="195" y="252" fill="#aab4c3" font-size="17">Dashboard</text>
+    <text x="195" y="286" fill="#aab4c3" font-size="17">Workout Screen</text>
+    <text x="195" y="320" fill="#aab4c3" font-size="17">Cardio Screen</text>
+    <text x="195" y="354" fill="#aab4c3" font-size="17">Metrics / Macros</text>
+    <text x="195" y="388" fill="#aab4c3" font-size="17">Profile Setup</text>
+
+    <rect x="430" y="145" width="240" height="115" rx="22" fill="url(#orange)" stroke="#facc15" stroke-width="3"/>
+    <text x="550" y="195" fill="#111827" font-size="24" font-weight="700">Calculations</text>
+    <text x="550" y="226" fill="#111827" font-size="16">BMI · BMR · TDEE · Macros</text>
+
+    <rect x="430" y="340" width="240" height="115" rx="22" fill="url(#blue)" stroke="#60a5fa" stroke-width="3"/>
+    <text x="550" y="390" fill="#f3f4f6" font-size="24" font-weight="700">Data Models</text>
+    <text x="550" y="421" fill="#dbeafe" font-size="16">UserProfile · WorkoutEntry</text>
+
+    <rect x="785" y="170" width="240" height="270" rx="22" fill="#111827" stroke="#22c55e" stroke-width="3"/>
+    <text x="905" y="210" fill="#f3f4f6" font-size="24" font-weight="700">Storage</text>
+    <text x="905" y="252" fill="#aab4c3" font-size="17">profile.json</text>
+    <text x="905" y="286" fill="#aab4c3" font-size="17">workouts.json</text>
+    <text x="905" y="320" fill="#aab4c3" font-size="17">Save / load profile</text>
+    <text x="905" y="354" fill="#aab4c3" font-size="17">Save / load workouts</text>
+    <text x="905" y="388" fill="#aab4c3" font-size="17">Delete / clear history</text>
+  </g>
+
+  <g stroke="#facc15" stroke-width="4" fill="none" marker-end="url(#arrow)">
+    <path d="M315 245 C365 220 385 205 428 202"/>
+    <path d="M315 365 C365 390 385 397 428 397"/>
+    <path d="M670 397 C720 397 735 365 782 340"/>
+    <path d="M670 202 C720 202 735 245 782 260"/>
+  </g>
+</svg>
